@@ -4,12 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace User
+namespace Encryptions
 {
+    //  Алгоритм шифрования Диффи-Хеллмана
     internal class Diffie_Hellman : User
     {
-        private int g, p, X, Y, Z;
+        private long g, p, X, Y, Z;
 
+        //	Конструктор класса по умолчанию
         public Diffie_Hellman()
         {
             g = 0;
@@ -18,8 +20,8 @@ namespace User
             Y = 0;
             Z = 0;
         }
-
-        public Diffie_Hellman(int _g, int _p)
+        //	Конструктор класса для инициализации пользователя
+        public Diffie_Hellman(long _g, long _p)
         {
             g = _g;
             p = _p;
@@ -28,7 +30,7 @@ namespace User
             Z = 0;
             Calc_Y();
         }
-
+        //	Конструктор класса для работы с отправителем и получателем
         public Diffie_Hellman(ref Diffie_Hellman first_user, ref Diffie_Hellman second_user)
         {
             g = 0;
@@ -41,62 +43,62 @@ namespace User
             second_user.Calc_Z(first_user.Get_Y());
         }
 
-
-        public void Set_g(int _g)
+        //	Метод для установки g
+        public void Set_g(long _g)
         {
             g = _g;
         }
-
-        public void Set_p(int _p)
+        //	Метод для установки p
+        public void Set_p(long _p)
         {
             p = _p;
         }
-        
-        public void Set_X(int _x)
+        //	Метод для установки X
+        public void Set_X(long _x)
         {
             X = _x;
         }
-        
+        //	Метод для генерации X
         public void Generate_X()
         {
             X = rand.Next(2, 1000);
         }
-        
-        public int Get_g()
+        //	Метод для получения g
+        public long Get_g()
         {
             return g;
         }
-        
-        public int Get_p()
+        //	Метод для получения p
+        public long Get_p()
         {
             return p;
         }
-        
-        public int Get_X()
+        //	Метод для получения X
+        public long Get_X()
         {
             return X;
         }
-        
-        public int Get_Y()
+        //	Метод для получения Y
+        public long Get_Y()
         {
             return Y;
         }
-        
-        public int Get_Z()
+        //	Метод для получения Z
+        public long Get_Z()
         {
             return Z;
         }
-        
+        //	Метод для расчета Y
         public void Calc_Y()
         {
             Y = Mod_Exp(g, X, p);
         }
-        
-        public void Calc_Z(int _y)
+        //	Метод для расчета Z
+        public void Calc_Z(long _y)
         {
             Z = Mod_Exp(_y, X, p);
         }
-        
+        //	Метод для вывода данных класса
         public void PrintData()
         {
             Console.WriteLine($"Name:  {User_Name}");
@@ -105,6 +107,7 @@ namespace User
             Console.WriteLine($"X: {X}");
             Console.WriteLine($"Y: {Y}");
             Console.WriteLine($"Z: {Z}");
+            Console.WriteLine();
         }
     }
 }
